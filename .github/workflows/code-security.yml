@@ -1,0 +1,42 @@
+name: Code Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit pip-audit
+        pip install -r requirements.txt
+
+    - name: Run Bandit (Security Linter)
+      run: bandit -r src/ -f json -o bandit-report.json || true
+
+    - name: Display Bandit Results
+      run: bandit -r src/
+
+    - name: Run pip-audit (Dependency Vulnerability Check)
+      run: pip-audit -r requirements.txt
+
+    - name: Upload Bandit Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: bandit-security-report
+        path: bandit-report.json

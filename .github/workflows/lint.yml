@@ -1,0 +1,38 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort mypy
+        pip install -r requirements.txt
+
+    - name: Run Black (Code Formatting)
+      run: black --check src/
+
+    - name: Run isort (Import Sorting)
+      run: isort --profile black --check-only src/
+
+    - name: Run Flake8 (Linting)
+      run: flake8 src/ --max-line-length=88 --extend-ignore=E203,W503
+
+    - name: Run MyPy (Type Checking)
+      run: mypy src/ --ignore-missing-imports
