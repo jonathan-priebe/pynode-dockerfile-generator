@@ -32,7 +32,7 @@ jobs:
       run: bandit -r src/
 
     - name: Run pip-audit (Dependency Vulnerability Check)
-      run: pip-audit --require-hashes --disable-pip
+      run: pip-audit -r requirements.txt
 
     - name: Upload Bandit Report
       uses: actions/upload-artifact@v4
