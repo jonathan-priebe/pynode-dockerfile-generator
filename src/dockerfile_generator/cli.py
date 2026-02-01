@@ -9,7 +9,7 @@ from .generator import generate_dockerfile
 @click.group()
 @click.help_option("-h", "--help")
 def cli():
-    """Dockerfile Generator - Automatically create production-ready Dockerfile templates.
+    """Dockerfile Generator - Create production-ready Dockerfile templates.
 
     Generate clean, minimal Dockerfile templates for Python and Node.js projects
     with customizable versions and distribution flavors (alpine, slim, etc.).
@@ -45,7 +45,7 @@ def cli():
     "-o",
     "--output-file",
     type=click.Path(),
-    help="Output file path for the generated Dockerfile. (default: <timestamp>.Containerfile)",
+    help="Output file path (default: <timestamp>.Containerfile)",
 )
 @click.help_option("-h", "--help")
 def create(language: str, language_version: str, flavor: str, output_file: str):

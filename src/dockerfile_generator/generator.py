@@ -1,10 +1,8 @@
-from pathlib import Path
-
 from jinja2 import Environment, PackageLoader, TemplateNotFound, select_autoescape
 
 
 def generate_dockerfile(language: str, version: str, flavor: str) -> str:
-    """Generate a Dockerfile content based on the specified language, version, and flavor.
+    """Generate Dockerfile content for specified language, version, and flavor.
 
     Args:
         language (str): Programming language (e.g., 'python', 'nodejs').
