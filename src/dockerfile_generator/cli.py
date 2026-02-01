@@ -4,8 +4,20 @@ from pathlib import Path
 from .generator import generate_dockerfile
 
 @click.group()
+@click.help_option('-h', '--help')
 def cli():
-    """Dockerfile Generator CLI."""
+    """Dockerfile Generator - Automatically create production-ready Dockerfile templates.
+
+    Generate clean, minimal Dockerfile templates for Python and Node.js projects
+    with customizable versions and distribution flavors (alpine, slim, etc.).
+
+    Quick Start:
+        dockerfile-generator create python -lv 3.12 --flavor slim
+        dockerfile-generator create nodejs -lv 20 --flavor alpine
+
+    For detailed command help, use:
+        dockerfile-generator create --help
+    """
     pass
 
 @cli.command()
