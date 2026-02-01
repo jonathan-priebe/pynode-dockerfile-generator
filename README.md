@@ -99,6 +99,7 @@ dockerfile-generator create <language> [OPTIONS]
 ```bash
 # Using Docker directly
 docker run --rm -v $(pwd):/output dockerfile-generator create python -lv 3.12 --flavor slim
+# Ensure the current folder has its permissions set to chmod 777
 
 # Using Docker Compose
 docker-compose run --rm dockerfile-generator create nodejs -lv 20 --flavor alpine
@@ -170,6 +171,10 @@ pynode-dockerfile-generator/
 │       └── templates/
 │           ├── python.dockerfile.j2   # Python template
 │           └── nodejs.dockerfile.j2   # Node.js template
+├── docs/                              
+│   ├── cicd.md                        
+│   ├── cli-implementation.md          
+│   └── containerization.md            
 ├── docker/
 │   ├── Dockerfile                     # Container image
 │   └── entrypoint.sh                  # Container entrypoint
