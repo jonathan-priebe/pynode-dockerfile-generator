@@ -175,6 +175,7 @@ pynode-dockerfile-generator/
 │   └── entrypoint.sh                  # Container entrypoint
 ├── docker-compose.yml                 # Docker Compose config
 ├── requirements.txt                   # Python dependencies
+├── setup.py                           # Package setup
 └── README.md                          # Project documentation
 ```
 
