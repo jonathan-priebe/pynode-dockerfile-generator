@@ -1,7 +1,5 @@
 from pathlib import Path
-
-from jinja2 import (Environment, PackageLoader, TemplateNotFound,
-                    select_autoescape)
+from jinja2 import Environment, PackageLoader, TemplateNotFound, select_autoescape
 
 
 def generate_dockerfile(language: str, version: str, flavor: str) -> str:
