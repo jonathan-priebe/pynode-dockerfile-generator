@@ -14,6 +14,7 @@ A lightweight CLI tool that generates clean, minimal Dockerfile templates with c
   - [Examples](#examples)
 - [Command Reference](#command-reference)
 - [Project Structure](#project-structure)
+- [License](#license)
 
 ## Features
 
@@ -164,16 +165,20 @@ dockerfile-generator create <language> [OPTIONS]
 pynode-dockerfile-generator/
 ├── src/
 │   └── dockerfile_generator/
-│       ├── cli.py                   # CLI interface
-│       ├── generator.py             # Core generation logic
+│       ├── cli.py                     # CLI interface
+│       ├── generator.py               # Core generation logic
 │       └── templates/
-│           ├── python.dockerfile.j2 # Python template
+│           ├── python.dockerfile.j2   # Python template
 │           └── nodejs.dockerfile.j2   # Node.js template
 ├── docker/
-│   ├── Dockerfile                   # Container image
-│   └── entrypoint.sh                # Container entrypoint
-├── docker-compose.yml               # Docker Compose config
-├── setup.py                         # Package setup
-├── requirements.txt                 # Python dependencies
-└── README.md                        # Project documentation
+│   ├── Dockerfile                     # Container image
+│   └── entrypoint.sh                  # Container entrypoint
+├── docker-compose.yml                 # Docker Compose config
+├── requirements.txt                   # Python dependencies
+├── setup.py                           # Package setup
+└── README.md                          # Project documentation
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
