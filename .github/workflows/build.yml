@@ -3,9 +3,12 @@ name: Build and Push
 on:
   workflow_dispatch: 
   push:
-    branches: [main]    
+    paths-ignore: 
+      - 'README.md'
+      - 'docs/**'
+    branches: [main] 
     tags:
-      - 'v*.*.*'              
+      - 'v*.*.*' 
 
 env:
   REGISTRY: ghcr.io
