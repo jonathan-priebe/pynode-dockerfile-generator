@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  dockerfile-generator:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    volumes:
+      - dockerfile-output:/output
+    working_dir: /output
+    # Example: docker-compose run --rm dockerfile-generator create python -lv 3.12 --flavor slim
+    # Copy files from volume: docker cp $(docker-compose ps -q dockerfile-generator):/output/. ./
+
+volumes:
+  dockerfile-output:

@@ -1,78 +1,179 @@
-## pynode-dockerfile-generator
-**Simple Dockerfile template generator for Python and Node.js**
+# pynode-dockerfile-generator
 
-A lightweight and efficient tool that generates clean, ready-to-use Dockerfile templates for Python and Node.js projects. Perfect for rapid prototyping, consistent DevOps workflows, and avoiding repetitive boilerplate.
+**Automatically create production-ready Dockerfile templates for Python and Node.js**
+
+A lightweight CLI tool that generates clean, minimal Dockerfile templates with customizable versions and distribution flavors. Eliminate repetitive boilerplate and maintain consistent Docker configurations across your projects.
 
 ## Table of Contents
 
 - [Features](#features)
-- [Installation](#installation)
-  - [Prerequisites](#prerequisites)
-  - [Install from source](#install-from-source)
+- [Quick Start](#quick-start)
 - [Usage](#usage)
-  - [Basic syntax](#basic-syntax)
+  - [CLI Usage](#cli-usage)
+  - [Docker Usage](#docker-usage)
   - [Examples](#examples)
-  - [Command reference](#command-reference)
+- [Command Reference](#command-reference)
+- [Project Structure](#project-structure)
 
 ## Features
 
-- Supports modern Python and Node.js environments  
-- Produces minimal, production-ready Dockerfiles  
-- Eliminates copy-paste errors and speeds up project setup
+- Support for Python and Node.js environments
+- Customizable language versions (e.g., 3.12, 20, latest)
+- Multiple distribution flavors (alpine, slim, etc.)
+- Production-ready, minimal Dockerfile templates
+- Docker and Docker Compose support
+- Easy-to-use CLI with comprehensive help
 
-## Installation
+## Quick Start
 
 ### Prerequisites
 - Python 3.12 or higher
 - pip package manager
 
-### Install from source
+### Using CLI (Python installed)
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/pynode-dockerfile-generator.git
 cd pynode-dockerfile-generator
 
-# Create virtual environment
+# Create and activate virtual environment
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Install the package
+# Install the tool
 pip install -e .
+
+# Generate Python Dockerfile with version 3.12 and slim variant
+dockerfile-generator create python -lv 3.12 --flavor slim
+
+# Generate Node.js Dockerfile with alpine
+dockerfile-generator create nodejs -lv 20 --flavor alpine
+```
+
+### Using Docker (No Python required)
+
+```bash
+# Build the Docker image
+docker build -f docker/Dockerfile -t dockerfile-generator .
+
+# Generate Dockerfile templates
+docker run --rm -v $(pwd):/output dockerfile-generator create python -lv 3.12 --flavor slim
+```
+
+### Get Help
+
+```bash
+# CLI help
+dockerfile-generator -h
+dockerfile-generator create -h
+
+# Docker help
+docker run --rm dockerfile-generator -h
 ```
 
 ## Usage
 
-### Basic syntax
+### CLI Usage
+
+**Basic Syntax:**
 ```bash
-dockerfile-generator create  [OPTIONS]
+dockerfile-generator create <language> [OPTIONS]
 ```
 
+**Arguments:**
+- `<language>` - Required. Either `python` or `nodejs`
+
+**Options:**
+- `-lv, --language-version TEXT` - Version of Python/Node.js (default: latest)
+- `--flavor TEXT` - Distribution variant (e.g., alpine, slim)
+- `-o, --output-file PATH` - Output file path (default: `<timestamp>.Containerfile`)
+- `-h, --help` - Show help message
+
+### Docker Usage
+
+```bash
+# Using Docker directly
+docker run --rm -v $(pwd):/output dockerfile-generator create python -lv 3.12 --flavor slim
+
+# Using Docker Compose
+docker-compose run --rm dockerfile-generator create nodejs -lv 20 --flavor alpine
+```
+
+Generated files are saved to the mounted output directory.
+
 ### Examples
+
 ```bash
 # Generate Python Dockerfile with latest version
 dockerfile-generator create python
 
-# Generate Python 3.10 Dockerfile with Alpine Linux
-dockerfile-generator create python -lv 3.10 --flavor alpine
+# Generate Python 3.12 with slim variant
+dockerfile-generator create python -lv 3.12 --flavor slim
 
-# Generate Node.js 18 Dockerfile with custom output file
-dockerfile-generator create node -lv 18 -o MyNodeImageDefinition.Dockerfile
+# Generate Node.js 20 with Alpine Linux
+dockerfile-generator create nodejs -lv 20 --flavor alpine
+
+# Custom output file
+dockerfile-generator create python -lv 3.11 -o MyPythonApp.Dockerfile
+
+# Using Docker
+docker run --rm -v $(pwd):/output dockerfile-generator create nodejs -lv 18
 ```
 
-### Command reference
+## Command Reference
 
-#### create
+### Main Command
+
+```bash
+dockerfile-generator COMMAND [ARGS] [OPTIONS]...
+```
+
+**Options:**
+- `-h, --help` - Show help and exit
+
+**Commands:**
+- `create` - Create a new Dockerfile template
+
+### create Command
 
 Creates a Dockerfile template for the specified language.
 
-**Arguments:**
-- `language` - Required. Either `python` or `node`
+```bash
+dockerfile-generator create <language> [OPTIONS]
+```
+
+**Supported Languages:**
+- `python` - Python Dockerfile templates
+- `nodejs` - Node.js Dockerfile templates
 
 **Options:**
-- `-lv, --language-version` - Version of Python or Node.js (default: `latest`)
-- `--flavor` - Linux distribution variant (e.g., `alpine`, `slim`)
-- `-o, --output-file` - Output file path (default: `<timestamp>.Containerfile`)
-- `-h, --help` - Show help message
+| Option | Short | Description | Default |
+|--------|-------|-------------|---------|
+| `--language-version` | `-lv` | Language version (e.g., 3.12, 20) | latest |
+| `--flavor` | | Distribution flavor (alpine, slim) | none |
+| `--output-file` | `-o` | Output file path | `<timestamp>.Containerfile` |
+| `--help` | `-h` | Show command help | |
+
+## Project Structure
+
+```
+pynode-dockerfile-generator/
+├── src/
+│   └── dockerfile_generator/
+│       ├── cli.py                   # CLI interface
+│       ├── generator.py             # Core generation logic
+│       └── templates/
+│           ├── python.dockerfile.j2 # Python template
+│           └── nodejs.dockerfile.j2   # Node.js template
+├── docker/
+│   ├── Dockerfile                   # Container image
+│   └── entrypoint.sh                # Container entrypoint
+├── docker-compose.yml               # Docker Compose config
+├── setup.py                         # Package setup
+├── requirements.txt                 # Python dependencies
+└── README.md                        # Project documentation
+```

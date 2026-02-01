@@ -26,5 +26,9 @@ Thumbs.db
 .vscode/
 *.swp
 
+# Output
+output/
+*.Containerfile
+
 # Docker / Container
 *.tar
