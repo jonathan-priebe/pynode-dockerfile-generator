@@ -2,14 +2,12 @@ version: '3.8'
 
 services:
   dockerfile-generator:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
+    image: ghcr.io/jonathan-priebe/pynode-dockerfile-generator:latest
     volumes:
       - dockerfile-output:/output
     working_dir: /output
     # Example: docker-compose run --rm dockerfile-generator create python -lv 3.12 --flavor slim
-    # Copy files from volume: docker cp $(docker-compose ps -q dockerfile-generator):/output/. ./
+    # Copy files from volume: docker run --rm -v pynode-dockerfile-generator_dockerfile-output:/output -v $(pwd):/host alpine cp -r /output/. /host/
 
 volumes:
   dockerfile-output:
