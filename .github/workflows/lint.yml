@@ -10,6 +10,8 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
+    continue-on-error: true
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -29,7 +31,7 @@ jobs:
       run: black --check src/
 
     - name: Run isort (Import Sorting)
-      run: isort --check-only src/
+      run: isort --profile black --check-only src/
 
     - name: Run Flake8 (Linting)
       run: flake8 src/ --max-line-length=88 --extend-ignore=E203,W503

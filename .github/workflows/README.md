@@ -116,7 +116,7 @@ The workflow runs the following tools:
 | Tool | Purpose | Configuration |
 |------|---------|---------------|
 | **Black** | Code formatting | `--check` mode, line length: 88 |
-| **isort** | Import statement sorting | `--check-only` mode |
+| **isort** | Import statement sorting | `--profile black --check-only` mode |
 | **Flake8** | Style guide enforcement (PEP 8) | Max line length: 88, ignores: E203, W503 |
 | **MyPy** | Static type checking | `--ignore-missing-imports` |
 
